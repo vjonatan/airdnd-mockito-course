@@ -1,4 +1,4 @@
-package com.debuggeandoideas.airdnd.Services;
+package com.debuggeandoideas.airdnd.services;
 
 import com.debuggeandoideas.airdnd.dto.BookingDto;
 import com.debuggeandoideas.airdnd.repositories.PaymentRepository;

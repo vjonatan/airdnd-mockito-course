@@ -1,8 +1,8 @@
 package com.debuggeandoideas.airdnd;
 
-import com.debuggeandoideas.airdnd.Services.BookingService;
-import com.debuggeandoideas.airdnd.Services.PaymentService;
-import com.debuggeandoideas.airdnd.Services.RoomService;
+import com.debuggeandoideas.airdnd.services.BookingService;
+import com.debuggeandoideas.airdnd.services.PaymentService;
+import com.debuggeandoideas.airdnd.services.RoomService;
 import com.debuggeandoideas.airdnd.dto.BookingDto;
 import com.debuggeandoideas.airdnd.helpers.MailHelper;
 import com.debuggeandoideas.airdnd.repositories.BookingRepository;
