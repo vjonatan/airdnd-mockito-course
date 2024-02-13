@@ -9,6 +9,8 @@ import org.junit.jupiter.api.extension.*;
 import org.mockito.*;
 import org.mockito.junit.jupiter.*;
 
+import java.util.*;
+
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,6 +37,24 @@ public class BookingServiceTest {
         var result = bookingService.getAvailablePlaceCount();
 
         Assertions.assertEquals(expected, result);
+
+    }
+
+    @Test
+    @DisplayName("get booking should works")
+    void booking(){
+
+        var roomID = UUID.randomUUID().toString();
+
+        when(roomServiceMock.findAvailableRoom(Dummy.bookingDto_1))
+                .thenReturn(Dummy.default_rooms_list.get(0));
+
+        when(bookingRepositoryMock.save(Dummy.bookingDto_1))
+                .thenReturn(roomID);
+
+        var result = bookingService.booking(Dummy.bookingDto_1);
+
+        Assertions.assertEquals(roomID, result);
 
     }
 }

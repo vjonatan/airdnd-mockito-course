@@ -2,6 +2,7 @@ package com.debuggeandoideas.airdnd.utils;
 
 import com.debuggeandoideas.airdnd.dto.*;
 
+import java.time.*;
 import java.util.*;
 
 import static javax.swing.UIManager.*;
@@ -22,11 +23,35 @@ public class Dummy {
     }};
 
     public static final List<RoomDto> default_rooms_list = new ArrayList<>() {{
-        new RoomDto("A", 2);
-        new RoomDto("B", 2);
-        new RoomDto("C", 3);
-        new RoomDto("D", 2);
-        new RoomDto("E", 2);
-        new RoomDto("F", 3);
+        add(new RoomDto("A", 2));
+        add(new RoomDto("B", 2));
+        add(new RoomDto("C", 3));
+        add(new RoomDto("D", 2));
+        add(new RoomDto("E", 2));
+        add(new RoomDto("F", 3));
     }};
+
+    public static BookingDto bookingDto_1 = new BookingDto(
+            "1.1",
+            LocalDate.of(2023, 06, 10),
+            LocalDate.of(2023, 06, 20),
+            2,
+            true
+    );
+
+    public static BookingDto bookingDto_2 = new BookingDto(
+            "1.1",
+            LocalDate.of(2023, 06, 10),
+            LocalDate.of(2023, 06, 20),
+            2,
+            true
+    );
+
+    public static BookingDto bookingDto_3 = new BookingDto(
+            "1.1",
+            LocalDate.of(2023, 06, 10),
+            LocalDate.of(2023, 06, 20),
+            2,
+            true
+    );
 }
