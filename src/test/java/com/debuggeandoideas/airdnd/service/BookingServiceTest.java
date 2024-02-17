@@ -57,4 +57,23 @@ public class BookingServiceTest {
         Assertions.assertEquals(roomID, result);
 
     }
+
+    @Test
+    @DisplayName("get booking with doReturn")
+    void booking_doReturn(){
+
+        var roomID = UUID.randomUUID().toString();
+
+        doReturn(Dummy.default_rooms_list.get(0))
+                .when(roomServiceMock).findAvailableRoom(Dummy.bookingDto_2);
+
+        //Si ocurre alguna excepcion, va a continuar como si no hubiera ocurrido
+        doReturn(roomID)
+                .when(bookingRepositoryMock).save(Dummy.bookingDto_2);
+
+        var result = bookingService.booking(Dummy.bookingDto_2);
+
+        Assertions.assertEquals(roomID, result);
+
+    }
 }
