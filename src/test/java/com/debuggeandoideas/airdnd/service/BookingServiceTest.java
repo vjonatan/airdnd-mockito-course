@@ -1,5 +1,6 @@
 package com.debuggeandoideas.airdnd.service;
 
+import com.debuggeandoideas.airdnd.dto.*;
 import com.debuggeandoideas.airdnd.helpers.*;
 import com.debuggeandoideas.airdnd.repositories.*;
 import com.debuggeandoideas.airdnd.services.*;
@@ -72,6 +73,9 @@ public class BookingServiceTest {
                 .when(bookingRepositoryMock).save(Dummy.bookingDto_2);
 
         var result = bookingService.booking(Dummy.bookingDto_2);
+
+        verify(roomServiceMock).findAvailableRoom(any(BookingDto.class));
+        verify(bookingRepositoryMock).save(any(BookingDto.class));
 
         Assertions.assertEquals(roomID, result);
 
