@@ -72,10 +72,14 @@ public class BookingServiceTest {
         doReturn(roomID)
                 .when(bookingRepositoryMock).save(Dummy.bookingDto_2);
 
+        doNothing()
+                .when(roomServiceMock).bookRoom(anyString());
+
         var result = bookingService.booking(Dummy.bookingDto_2);
 
         verify(roomServiceMock).findAvailableRoom(any(BookingDto.class));
         verify(bookingRepositoryMock).save(any(BookingDto.class));
+        verify(roomServiceMock).bookRoom(anyString());
 
         Assertions.assertEquals(roomID, result);
 
