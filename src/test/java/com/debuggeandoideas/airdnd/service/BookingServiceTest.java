@@ -21,7 +21,7 @@ public class BookingServiceTest {
     private PaymentService paymentServiceMock;
     @Mock
     private RoomService roomServiceMock;
-    @Mock
+    @Spy
     private BookingRepository bookingRepositoryMock;
     @Mock
     private MailHelper mailHelperMock;
@@ -103,6 +103,32 @@ public class BookingServiceTest {
 
         //assertThrows para comparar excepciones
         Assertions.assertThrows(IllegalArgumentException.class, executable);
+
+    }
+
+    @Test
+    @DisplayName("get booking with doReturn")
+    void booking_doReturn_SPY(){
+
+        var roomID = UUID.randomUUID().toString();
+
+        doReturn(Dummy.default_rooms_list.get(0))
+                .when(roomServiceMock).findAvailableRoom(Dummy.bookingDto_2);
+
+        //Si ocurre alguna excepcion, va a continuar como si no hubiera ocurrido
+        doReturn(roomID)
+                .when(bookingRepositoryMock).save(Dummy.bookingDto_2);
+
+        doNothing()
+                .when(roomServiceMock).bookRoom(anyString());
+
+        var result = bookingService.booking(Dummy.bookingDto_2);
+
+        verify(roomServiceMock).findAvailableRoom(any(BookingDto.class));
+        verify(bookingRepositoryMock).save(any(BookingDto.class));
+        verify(roomServiceMock).bookRoom(anyString());
+
+        Assertions.assertEquals(roomID, result);
 
     }
 }
