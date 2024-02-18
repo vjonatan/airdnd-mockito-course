@@ -54,4 +54,12 @@ public class Dummy {
             2,
             true
     );
+
+    public static BookingDto bookingDto_4 = new BookingDto(
+            "1.1",
+            LocalDate.of(2023, 06, 10),
+            LocalDate.of(2023, 06, 20),
+            2,
+            true
+    );
 }

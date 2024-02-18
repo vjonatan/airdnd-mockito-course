@@ -7,6 +7,7 @@ import com.debuggeandoideas.airdnd.services.*;
 import com.debuggeandoideas.airdnd.utils.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
+import org.junit.jupiter.api.function.*;
 import org.mockito.*;
 import org.mockito.junit.jupiter.*;
 
@@ -82,6 +83,26 @@ public class BookingServiceTest {
         verify(roomServiceMock).bookRoom(anyString());
 
         Assertions.assertEquals(roomID, result);
+
+    }
+
+    @Test
+    @DisplayName("get booking with doReturn")
+    void booking_doReturn_UnHappy(){
+
+        var roomID = UUID.randomUUID().toString();
+
+        doReturn(Dummy.default_rooms_list.get(0))
+                .when(roomServiceMock).findAvailableRoom(Dummy.bookingDto_4);
+
+        //Agrego test para probar exception
+        doThrow(new IllegalArgumentException("Max 3 guest"))
+                .when(paymentServiceMock).pay(any(BookingDto.class), anyDouble());
+
+        Executable executable = ()-> bookingService.booking(Dummy.bookingDto_4);
+
+        //assertThrows para comparar excepciones
+        Assertions.assertThrows(IllegalArgumentException.class, executable);
 
     }
 }
