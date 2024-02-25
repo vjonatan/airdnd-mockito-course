@@ -24,11 +24,15 @@ public class Dummy {
 
     public static final List<RoomDto> default_rooms_list = new ArrayList<>() {{
         add(new RoomDto("A", 2));
-        add(new RoomDto("B", 2));
-        add(new RoomDto("C", 3));
-        add(new RoomDto("D", 2));
-        add(new RoomDto("E", 2));
+        add(new RoomDto("B", 0));
+        add(new RoomDto("C", 2));
+        add(new RoomDto("D", 0));
+        add(new RoomDto("E", 0));
         add(new RoomDto("F", 3));
+    }};
+
+    public static final List<RoomDto> empty_rooms_list = new ArrayList<>() {{
+        add(new RoomDto("A", 0));
     }};
 
     public static BookingDto bookingDto_1 = new BookingDto(

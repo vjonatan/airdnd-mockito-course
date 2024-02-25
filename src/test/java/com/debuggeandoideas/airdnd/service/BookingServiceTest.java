@@ -131,4 +131,24 @@ public class BookingServiceTest {
         Assertions.assertEquals(roomID, result);
 
     }
+
+    @Test
+    @DisplayName("get getAvailablePlaceCounts should works whith multiple returns")
+    void getAvailablePlaceCounts_withMultipleReturns(){
+
+        when(roomServiceMock.findAllAvailableRooms())
+                .thenReturn(Dummy.default_rooms_list)
+                .thenReturn(Dummy.empty_rooms_list);
+
+        var expected = 7;
+        var expected2 = 0;
+
+        var result = bookingService.getAvailablePlaceCount();
+        var result2 = bookingService.getAvailablePlaceCount();
+
+        Assertions.assertAll(
+                ()->Assertions.assertEquals(expected, result),
+                ()->Assertions.assertEquals(expected2, result2)
+        );
+    }
 }
