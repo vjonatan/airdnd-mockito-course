@@ -151,4 +151,35 @@ public class BookingServiceTest {
                 ()->Assertions.assertEquals(expected2, result2)
         );
     }
+
+    @Test
+    @DisplayName("test unbook() with methods void")
+    void unbook(){
+
+        var id1 = "id1";
+        var id2 = "id2";
+
+        var bookingRes1 = Dummy.bookingDto_3;
+        bookingRes1.setRoom(Dummy.default_rooms_list.get(1));
+
+        var bookingRes2 = Dummy.bookingDto_3;
+        bookingRes2.setRoom(Dummy.default_rooms_list.get(2));
+
+        when(bookingRepositoryMock.findById(anyString()))
+                .thenReturn(bookingRes1)
+                .thenReturn(bookingRes2);
+
+        doNothing()
+                .when(roomServiceMock).unbookRoom(anyString());
+
+        doNothing()
+                .when(bookingRepositoryMock).deleteById(anyString());
+
+        bookingService.unbook(id1);
+        bookingService.unbook(id2);
+
+        verify(roomServiceMock, times(2)).unbookRoom(anyString());
+        verify(bookingRepositoryMock, times(2)).deleteById(anyString());
+        verify(bookingRepositoryMock, times(2)).deleteById(anyString());
+    }
 }
