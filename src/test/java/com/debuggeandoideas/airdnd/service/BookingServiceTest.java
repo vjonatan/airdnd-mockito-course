@@ -27,6 +27,8 @@ public class BookingServiceTest {
     private MailHelper mailHelperMock;
     @InjectMocks
     private BookingService bookingService;
+    @Captor
+    private ArgumentCaptor<String> stringCapture;
 
     @Test
     @DisplayName("get getAvailablePlaceCounts should works")
@@ -180,6 +182,10 @@ public class BookingServiceTest {
 
         verify(roomServiceMock, times(2)).unbookRoom(anyString());
         verify(bookingRepositoryMock, times(2)).deleteById(anyString());
-        verify(bookingRepositoryMock, times(2)).deleteById(anyString());
+        verify(bookingRepositoryMock, times(2)).findById(stringCapture.capture());
+
+        System.out.printf("capture: " + stringCapture.getAllValues());
+
+        Assertions.assertEquals(List.of(id1, id2), stringCapture.getAllValues());
     }
 }
