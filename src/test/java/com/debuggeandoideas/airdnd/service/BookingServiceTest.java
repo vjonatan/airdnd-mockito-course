@@ -188,4 +188,19 @@ public class BookingServiceTest {
 
         Assertions.assertEquals(List.of(id1, id2), stringCapture.getAllValues());
     }
+
+    @Test
+    @DisplayName("currencyConverter should works")
+    void currencyConverter(){
+        try(MockedStatic<CurrencyConverter> mockStatic = mockStatic(CurrencyConverter.class)){
+            var expected = 900.0;
+
+            mockStatic.when(() -> CurrencyConverter.toMx(anyDouble()))
+                    .thenReturn(expected);
+
+            var response = bookingService.calculateInMxn(Dummy.bookingDto_1);
+
+            Assertions.assertEquals(expected, response);
+        }
+    }
 }
