@@ -76,12 +76,16 @@ public class BookingServiceTest {
                 .when(bookingRepositoryMock).save(Dummy.bookingDto_2);
 
         doNothing()
+                .when(mailHelperMock).sendMail(anyString(), anyString());
+
+        doNothing()
                 .when(roomServiceMock).bookRoom(anyString());
 
         var result = bookingService.booking(Dummy.bookingDto_2);
 
         verify(roomServiceMock).findAvailableRoom(any(BookingDto.class));
         verify(bookingRepositoryMock).save(any(BookingDto.class));
+        verify(mailHelperMock).sendMail(anyString(), anyString());
         verify(roomServiceMock).bookRoom(anyString());
 
         Assertions.assertEquals(roomID, result);
